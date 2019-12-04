@@ -1,0 +1,53 @@
+<nav>
+    <div class="nav-wrapper white-text blue darken-4">
+        <a href="#" class="brand-logo right">&nbsp;iFleet</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="fleet">
+                    Fleet
+                </a>
+                <ul id="fleet" class="dropdown-content">
+                    <li><a href="{{ path("cars_in_service") }}">Cars in service</a></li>
+                    <li><a href="">Cars in pool</a></li>
+                    <li><a href="{{ path("cars_at_repair") }}">Cars at repairs</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ path("cars_all") }}">All Cars</a></li>
+                    <li><a href="#!">Add a Car</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="drivers">
+                    Drivers
+                </a>
+                <ul id="drivers" class="dropdown-content">
+                    <li><a href="#!">Drivers</a></li>
+                    <li><a href="#!">Add Driver</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="service">
+                    Service
+                </a>
+                <ul id="service" class="dropdown-content">
+                    <li><a href="#!">Reminders</a></li>
+                    <li><a href="#!">Tires</a></li>
+                    <li><a href="#!">Repairs</a></li>
+                    <li><a href="#!">Fuel</a></li>
+                </ul>
+
+            </li>
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="reports">
+                    Reports
+                </a>
+                <ul id="reports" class="dropdown-content">
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!">three</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

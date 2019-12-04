@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+        <link rel="stylesheet" href="{{ asset('app/css/app.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% include 'app/layout/navbar.html.twig' %}
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="{{  asset('jquery-3.4.1.js') }}"></script>
+        <script src="{{  asset('materialize/js/materialize.js')}}"></script>
+        <script src="{{  asset('app/js/base.js')}}"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

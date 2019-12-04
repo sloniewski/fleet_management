@@ -1,0 +1,11 @@
+{% extends 'app/base.html.twig' %}
+
+{% block title %}Cars{% endblock %}
+
+{% block body %}
+    <ul class="collection">
+    {% for car in cars %}
+        <li class="collection-item"> {{ car.model.name }} {{ car.year }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
