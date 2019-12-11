@@ -1,0 +1,7 @@
+{{ form_start(form, {'attr': {'id': 'brand-new'}}) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    {% include 'admin/layout/inputs/text.html.twig' with { 'field' : form.name } %}
+{{ form_end(form) }}

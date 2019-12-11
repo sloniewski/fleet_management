@@ -22,7 +22,12 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        {% block content %}{% endblock content %}
+        <section class="content-header">
+            {% block content_header %}{% endblock content_header %}
+        </section>
+        <section class="content">
+            {% block content %}{% endblock content %}
+        </section>
     </div>
 </div>
 
