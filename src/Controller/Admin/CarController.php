@@ -22,11 +22,4 @@ class CarController extends AbstractController
         return $this->render('admin/cars/index.html.twig');
     }
 
-    /**
-     * @Route("/create", name="create", methods={"GET", "POST"})
-     **/
-    public function create()
-    {
-
-    }
 }

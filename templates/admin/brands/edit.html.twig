@@ -1,0 +1,22 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Create brand</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    {{ include('admin/brands/_form.html.twig') }}
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <button type="submit" class="btn btn-primary" form="brand-new">Submit</button>
+                    <a href="{{  path('admin_brands_index') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

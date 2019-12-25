@@ -14,12 +14,20 @@
                             <th style="width: 10px">#</th>
                             <th>Task</th>
                             <th style="width: 100px">Number of cars</th>
+                            <th>Actions</th>
                         </tr>
                         {% for brand in brands %}
                         <tr>
                             <td>1.</td>
                             <td>{{ brand.name }}</td>
                             <td><span class="badge bg-red">55</span></td>
+                            <td>
+                                {% include 'admin/brands/_delete_form.html.twig' %}
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-danger" form="delete-{{ brand.id }}">Delete</button>
+                                    <a class="btn btn-primary" href="{{ path('admin_brands_edit', { 'id': brand.id }) }}">Update</a>
+                                </div>
+                            </td>
                         </tr>
                         {% endfor %}
                         </tbody>

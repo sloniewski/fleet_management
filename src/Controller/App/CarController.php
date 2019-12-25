@@ -53,4 +53,12 @@ class CarController extends AbstractController
             'cars' => $cars,
         ]);
     }
+
+    /**
+     * @Route("/new", name="new", methods={"GET"})
+     */
+    public function new()
+    {
+        return $this->render('app/car/new.html.twig');
+    }
 }
