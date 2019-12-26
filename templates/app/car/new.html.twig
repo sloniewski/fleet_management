@@ -1,5 +1,13 @@
 {% extends 'app/base.html.twig' %}
 
-{% block content %}
-c
-{% endblock content %}
+{% block body %}
+    {% include 'app/car/_form.html.twig' %}
+{% endblock body %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+{% endblock %}

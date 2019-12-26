@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\DictionaryRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="name", type="string")
- * @ORM\DiscriminatorMap({"engine_type" = "App\Entity\Dictionaries\EngineType"})
+ * @ORM\DiscriminatorMap({"engine_type" = "App\Entity\Dictionaries\EngineType", "engine_volume" = "App\Entity\Dictionaries\EngineVolume"})
  */
 abstract class Dictionary
 {

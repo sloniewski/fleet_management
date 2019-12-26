@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Brand;
 use App\Entity\Dictionaries\EngineType;
+use App\Entity\Dictionaries\EngineVolume;
 use App\Entity\Model;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,12 +17,17 @@ class ModelType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('year')
             ->add('brand', EntityType::class, [
                 'class' => Brand::class,
                 'choice_label' => 'name'
             ])
             ->add('engineType', EntityType::class, [
                 'class' => EngineType::class,
+                'choice_label' => 'value'
+            ])
+            ->add('engineVolume', EntityType::class, [
+                'class' => EngineVolume::class,
                 'choice_label' => 'value'
             ])
         ;

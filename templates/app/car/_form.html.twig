@@ -1,0 +1,21 @@
+<div class="row">
+    {{ form_start(form, {'attr': {'id': 'new'}}) }}
+
+    <div class="input-field col s6">
+        {{ form_label(form.year) }}
+        {{ form_widget(form.year) }}
+        <div class="form-error">
+            {{ form_errors(form.year) }}
+        </div>
+    </div>
+
+    <div class="input-field col s6">
+        {{ form_widget(form.model) }}
+        {{ form_label(form.model) }}
+        <div class="form-error">
+            {{ form_errors(form.model) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>

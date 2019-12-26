@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Dictionaries\EngineType;
+use App\Entity\Dictionaries\EngineVolume;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +33,17 @@ class Model
      * @ORM\ManyToOne(targetEntity="App\Entity\Dictionaries\EngineType")
      */
     private $engineType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dictionaries\EngineVolume")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $engineVolume;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $year;
 
     public function getId(): ?int
     {
@@ -70,6 +82,30 @@ class Model
     public function setEngineType(?EngineType $engineType): self
     {
         $this->engineType = $engineType;
+
+        return $this;
+    }
+
+    public function getEngineVolume(): ?EngineVolume
+    {
+        return $this->engineVolume;
+    }
+
+    public function setEngineVolume(?EngineVolume $engineVolume): self
+    {
+        $this->engineVolume = $engineVolume;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }
