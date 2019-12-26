@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ header }}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                {{ include(form_template) }}
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <button type="submit" class="btn btn-primary" form="{% if form_id is defined %}{{ form_id }}{% else %}new{% endif %}">Submit</button>
+                <a href="{{  path(return_url) }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

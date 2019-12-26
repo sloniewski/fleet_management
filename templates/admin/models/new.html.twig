@@ -1,0 +1,5 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block content %}
+    {% include 'admin/layout/generic/_new.html.twig' with { 'header': 'Add model', 'form_template': 'admin/models/_form.html.twig', 'return_url': 'admin_models_index'} %}
+{% endblock content %}

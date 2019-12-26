@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Dictionaries\EngineType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,11 @@ class Model
      * @ORM\JoinColumn(nullable=false)
      */
     private $brand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Dictionaries\EngineType")
+     */
+    private $engineType;
 
     public function getId(): ?int
     {
@@ -52,6 +58,18 @@ class Model
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getEngineType(): ?EngineType
+    {
+        return $this->engineType;
+    }
+
+    public function setEngineType(?EngineType $engineType): self
+    {
+        $this->engineType = $engineType;
 
         return $this;
     }
