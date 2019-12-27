@@ -109,4 +109,10 @@ class Model
 
         return $this;
     }
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\GeneratedValue();
+     */
+    private $brand_id;
 }

@@ -2,9 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Brand;
 use App\Entity\Model;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Model|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,39 +11,17 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Model[]    findAll()
  * @method Model[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ModelRepository extends ServiceEntityRepository
+class ModelRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Model::class);
-    }
+    protected $entityClass = Model::class;
+    protected $alias = 'models';
 
-    // /**
-    //  * @return Model[] Returns an array of Model objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function filterByBrand(Brand $brand): self
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $this->builder = $this->getBuilder()
+            ->andWhere("{$this->alias}.brand_id = :brand_id")
+            ->setParameter('brand_id', $brand->getId());
 
-    /*
-    public function findOneBySomeField($value): ?Model
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this;
     }
-    */
 }

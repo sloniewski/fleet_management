@@ -1,7 +1,7 @@
 <div class="row">
     {{ form_start(form, {'attr': {'id': 'new'}}) }}
 
-    <div class="input-field col s6">
+    <div class="col s12">
         {{ form_label(form.year) }}
         {{ form_widget(form.year) }}
         <div class="form-error">
@@ -9,9 +9,25 @@
         </div>
     </div>
 
-    <div class="input-field col s6">
-        {{ form_widget(form.model) }}
+    <div class="col s12">
+        {{ form_label(form.brand) }}
+        {{ form_widget(form.brand, {'attr': {'class': 'brand'}}) }}
+        <div class="form-error">
+            {{ form_errors(form.brand) }}
+        </div>
+    </div>
+
+    <div class="col s12">
+        {{ form_label(form.model_name) }}
+        {{ form_widget(form.model_name, {'attr': {'class': 'brand-names'}}) }}
+        <div class="form-error">
+            {{ form_errors(form.model_name) }}
+        </div>
+    </div>
+
+    <div class="col s12">
         {{ form_label(form.model) }}
+        {{ form_widget(form.model, {'attr': {'class': 'select2'}}) }}
         <div class="form-error">
             {{ form_errors(form.model) }}
         </div>
