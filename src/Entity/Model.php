@@ -30,6 +30,12 @@ class Model
     private $brand;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\GeneratedValue();
+     */
+    private $brand_id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Dictionaries\EngineType")
      */
     private $engineType;
@@ -109,10 +115,4 @@ class Model
 
         return $this;
     }
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     * @ORM\GeneratedValue();
-     */
-    private $brand_id;
 }

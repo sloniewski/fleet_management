@@ -19,7 +19,7 @@
 
     <div class="col s12">
         {{ form_label(form.model_name) }}
-        {{ form_widget(form.model_name, {'attr': {'class': 'brand-names'}}) }}
+        {{ form_widget(form.model_name, {'attr': {'class': 'brand-model'}}) }}
         <div class="form-error">
             {{ form_errors(form.model_name) }}
         </div>
@@ -27,7 +27,7 @@
 
     <div class="col s12">
         {{ form_label(form.model) }}
-        {{ form_widget(form.model, {'attr': {'class': 'select2'}}) }}
+        {{ form_widget(form.model, {'attr': {'class': 'model'}}) }}
         <div class="form-error">
             {{ form_errors(form.model) }}
         </div>

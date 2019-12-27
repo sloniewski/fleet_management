@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CarRepository;
+use Symfony\Component\Validator\Constraints\Json;
 
 
 /**
@@ -89,7 +90,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/model-names/{id}", name="brand_model_names", methods={"GET"})
+     * @Route("/brand-models/{id}", name="brand_model_names", methods={"GET"})
      */
     public function modelNames(Brand $brand): JsonResponse
     {
@@ -103,9 +104,7 @@ class CarController extends AbstractController
 
         $models = $this->getModelsForBrand($brand);
         foreach($models as $model) {
-            $data['results'][] = [
-                'id' => $model['name'], 'text' => $model['name']
-            ];
+            $data['results'][] = ['id' => $model['name'], 'text' => $model['name']];
         }
 
         return (new JsonResponse($data));
@@ -120,5 +119,34 @@ class CarController extends AbstractController
             ->setParameter('brand_id', $brand->getId())
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @Route("/models/{id}", name="brand_models", methods={"GET"})
+     */
+    public function models(Brand $brand, Request $request): JsonResponse
+    {
+        $data = [
+            "results" => [
+            ],
+            "pagination" => [
+                "more" => false
+            ]
+        ];
+
+        $models = $this->models
+            ->filterByBrand($brand)
+            ->filterByName($request->get('brand_model'))
+            ->get();
+
+        foreach($models as $model) {
+            $data["results"][] = [
+                'id' => $model->getId(),
+                'text' => "{$model->getYear()} {$model->getEngineVolume()->getValue()} {$model->getEngineType()->getValue()}"
+            ];
+        }
+
+
+        return (new JsonResponse($data));
     }
 }

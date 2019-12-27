@@ -24,4 +24,13 @@ class ModelRepository extends AbstractRepository
 
         return $this;
     }
+
+    public function filterByName(string $name): self
+    {
+        $this->builder = $this->getBuilder()
+            ->andWhere("{$this->alias}.name = :name")
+            ->setParameter('name', $name);
+
+        return $this;
+    }
 }

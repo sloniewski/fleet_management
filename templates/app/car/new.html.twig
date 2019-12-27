@@ -9,20 +9,43 @@
         $(document).ready(function(){
             $('.select2').select2({ 'width': '100%'});
 
-            $('.brand').select2({ 'width': '100%'})
+            $('.brand')
+                .select2({ 'width': '100%'})
                 .on('change', function() {
                     $('.brand-names')
                         .empty()
                         .trigger('change')
                 });
 
-            $('.brand-names').select2({
+            $('.brand-model')
+                .select2({
+                    width: '100%' ,
+                    ajax: {
+                        url:  function (params) {
+                            return '/cars/brand-models/' + $('.brand').val();
+                        } ,
+                        dataType: 'json'
+                    }})
+                .on('change', function() {
+                        $('.models')
+                            .empty()
+                            .trigger('change')
+                    });
+
+            $('.model').select2({
                 width: '100%' ,
                 ajax: {
                     url:  function (params) {
-                        return '/cars/model-names/' + $('.brand').val();
-                    } ,
-                    dataType: 'json'
+                        return '/cars/models/' + $('.brand').val();
+                    },
+                    data: function (params) {
+                        let model_name = $('.brand-model').val();
+                        return {
+                            brand_model: model_name,
+                            type: 'public'
+                        };
+                    },
+                    dataType: 'json',
                 }});
         });
     </script>

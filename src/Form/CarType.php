@@ -19,7 +19,8 @@ class CarType extends AbstractType
                 'class' => Model::class,
                 'choice_label' => function ($choice, $key, $value) {
                     return "{$key} {$choice->getName()} {$choice->getYear()} {$choice->getEngineVolume()->getValue()}";
-                }
+                },
+                'choices' => []
             ])
         ;
     }
