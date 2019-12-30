@@ -26,6 +26,11 @@ class Car
      */
     private $year;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Color")
+     */
+    private $color;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Car
     public function setYear(int $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getColor(): ?Color
+    {
+        return $this->color;
+    }
+
+    public function setColor(?Color $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

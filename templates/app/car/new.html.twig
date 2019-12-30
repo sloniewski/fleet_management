@@ -6,16 +6,28 @@
 
 {% block scripts %}
     <script>
+        function removeModels() {
+            $('.model')
+                .val(0)
+                .empty()
+                .trigger('change')
+        }
+
+        function removeBrandModels() {
+            $('.brand-model')
+                .val(0)
+                .empty()
+                .trigger('change')
+        }
+
+
         $(document).ready(function(){
-            $('.select2').select2({ 'width': '100%'});
 
             $('.brand')
                 .select2({ 'width': '100%'})
                 .on('change', function() {
-                    $('.brand-names')
-                        .empty()
-                        .trigger('change')
-                });
+                        removeBrandModels()
+                    });
 
             $('.brand-model')
                 .select2({
@@ -27,9 +39,7 @@
                         dataType: 'json'
                     }})
                 .on('change', function() {
-                        $('.models')
-                            .empty()
-                            .trigger('change')
+                        removeModels();
                     });
 
             $('.model').select2({
@@ -47,6 +57,15 @@
                     },
                     dataType: 'json',
                 }});
+
+            $('#car_color')
+                .select2({
+                    width: '100%',
+                    templateResult: function(option) {
+                        let color = option.element ? option.element.dataset.color : '';
+                        return $('<span style="background-color:' + color +'">' + option.text + '</span>');
+                    }
+                });
         });
     </script>
 {% endblock %}

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('materialize/css/materialize.css') }}">
+        <link rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('app/css/app.css') }}">
         {% block stylesheets %}{% endblock %}
@@ -14,8 +14,8 @@
             {% block body %}{% endblock %}
         </div>
 
-        <script src="{{  asset('jquery-3.4.1.js') }}"></script>
-        <script src="{{  asset('materialize/js/materialize.js')}}"></script>
+        <script src="{{  asset('plugins/jquery-3.4.1.js') }}"></script>
+        <script src="{{  asset('plugins/materialize/js/materialize.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
         <script src="{{  asset('app/js/base.js')}}"></script>
         {% block scripts %}{% endblock %}

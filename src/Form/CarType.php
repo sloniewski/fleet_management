@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Car;
+use App\Entity\Color;
 use App\Entity\Model;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -21,6 +22,13 @@ class CarType extends AbstractType
                     return "{$key} {$choice->getName()} {$choice->getYear()} {$choice->getEngineVolume()->getValue()}";
                 },
                 'choices' => []
+            ])
+            ->add('color', EntityType::class, [
+                'class' => Color::class,
+                'choice_label' => 'name',
+                'choice_attr' => function($color, $key, $index) {
+                    return ['data-color' => $color->getHexRgb()];
+                },
             ])
         ;
     }
