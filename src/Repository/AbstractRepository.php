@@ -30,4 +30,11 @@ class AbstractRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function first()
+    {
+        return $this->getBuilder()
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }

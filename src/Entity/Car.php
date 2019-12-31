@@ -71,4 +71,9 @@ class Car
 
         return $this;
     }
+
+    public function getBrand(): Brand
+    {
+        return $this->getModel()->getBrand();
+    }
 }

@@ -8,6 +8,7 @@ use App\Form\CarType;
 use App\Repository\ModelRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,12 +52,12 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET"})
+     * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request)
     {
         $car = new Car();
-        $form = $this->getForm($car);
+        $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -70,21 +71,6 @@ class CarController extends AbstractController
             'car' => $car,
             'form' => $form->createView(),
         ]);
-    }
-
-    private function getForm(Car $car): FormInterface
-    {
-        $form = $this->createForm(CarType::class, $car);
-        $form->add('brand', EntityType::class, [
-            'class' => Brand::class,
-            'mapped' => false,
-            'choice_label' => 'name'
-        ]);
-        $form->add('model_name', ChoiceType::class, [
-           'choices' => [],
-            'mapped' => false,
-        ]);
-        return $form;
     }
 
     /**
@@ -103,23 +89,12 @@ class CarController extends AbstractController
             ]
         ];
 
-        $models = $this->getModelsForBrand($brand);
+        $models = $this->models->getDistinctModelNames($brand);
         foreach($models as $model) {
-            $data['results'][] = ['id' => $model['name'], 'text' => $model['name']];
+            $data['results'][] = ['id' => $model->getName(), 'text' => $model->getName()];
         }
 
         return (new JsonResponse($data));
-    }
-
-    private function getModelsForBrand(Brand $brand)
-    {
-        return $this->models->createQueryBuilder('models')
-            ->select('models.name, models.brand_id')
-            ->groupBy('models.name, models.brand_id')
-            ->having("models.brand_id = :brand_id")
-            ->setParameter('brand_id', $brand->getId())
-            ->getQuery()
-            ->getResult();
     }
 
     /**
