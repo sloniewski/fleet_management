@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Controller\App;
+namespace App\Controller\FleetManager;
 
 use App\Entity\Car;
 use App\Entity\Brand;
 use App\Form\CarType;
 use App\Repository\ModelRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,7 +42,7 @@ class CarController extends AbstractController
     public function index()
     {
         $cars = $this->cars->findAll();
-        return $this->render('app/car/index.html.twig', [
+        return $this->render('fleet-manager/car/index.html.twig', [
             'cars' => $cars,
         ]);
     }
@@ -67,7 +63,7 @@ class CarController extends AbstractController
             return $this->redirectToRoute('cars_index');
         }
 
-        return $this->render('app/car/new.html.twig', [
+        return $this->render('fleet-manager/car/new.html.twig', [
             'car' => $car,
             'form' => $form->createView(),
         ]);

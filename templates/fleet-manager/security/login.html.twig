@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.css') }}">
+    <link rel="stylesheet" href="{{ asset('app/css/app.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+
+
+            <div class="card-panel">
+                <h3 class="card-title">Enter credentials</h3>
+
+                {% if error %}
+                    <div class="alert orange white-text">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn btn-block" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{  asset('plugins/jquery-3.4.1.js') }}"></script>
+<script src="{{  asset('plugins/materialize/js/materialize.js')}}"></script>
+</body>
+</html>

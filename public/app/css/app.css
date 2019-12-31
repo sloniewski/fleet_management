@@ -1,3 +1,13 @@
 #nav-mobile > li {
     min-width: 200px;
 }
+
+.btn-block {
+    width: 100%;
+}
+
+.alert {
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+}
