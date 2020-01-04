@@ -89,9 +89,9 @@ class Car
         return $this;
     }
 
-    public function getBrand(): Brand
+    public function getBrand(): ?Brand
     {
-        return $this->getModel()->getBrand();
+        return $this->getModel() ? $this->getModel()->getBrand() : null;
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Car;
 use App\Entity\Color;
 use App\Entity\Model;
+use App\Repository\AbstractRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ModelRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -33,12 +34,6 @@ class CarType extends AbstractType
         $builder
             ->add('year')
             ->add('plates')
-            ->add('brand', EntityType::class, [
-                'class' => Brand::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'required' => false,
-            ])
             ->add('color', EntityType::class, [
                 'class' => Color::class,
                 'choice_label' => 'name',
@@ -66,8 +61,7 @@ class CarType extends AbstractType
         $form = $event->getForm();
         $car = $event->getData();
 
-        $this->addModelNames($form, $car);
-        $this->addModels($form, $car);
+        $this->addDynamicFields($form, $car);
     }
 
     /**
@@ -78,8 +72,26 @@ class CarType extends AbstractType
         $form = $event->getForm();
         $car = $event->getData();
 
-        $this->addModelNames($form, $car);
+        $this->addDynamicFields($form, $car);
+    }
+
+    private function addDynamicFields(FormInterface $form, $car) {
         $this->addModels($form, $car);
+        $this->addBrand($form, $car);
+        $this->addModelNames($form, $car);
+    }
+
+    public function addBrand(FormInterface $form, $car)
+    {
+        $brand = ($car instanceof Car) ? $car->getBrand() : null;
+
+        $form->add('brand', EntityType::class, [
+            'class' => Brand::class,
+            'choice_label' => 'name',
+            'required' => false,
+            'data' => $brand,
+            'mapped' => false,
+        ]);
     }
 
     /**
@@ -88,17 +100,19 @@ class CarType extends AbstractType
      */
     private function addModelNames(FormInterface $form, $car)
     {
-        $brand = ($car instanceof Car && $car->getModel()) ? $car->getBrand() : null;
+        $brand = ($car instanceof Car) ? $car->getBrand() : null;
 
         $choices = [];
-        foreach($this->models->getDistinctModelNames($brand) as $model) {
+        $models = $this->models->buildQuery()->getDistinctModelNames($brand);
+        foreach($models as $model) {
             $choices[$model->getName()] = $model->getName();
         }
 
         $form->add('model_name', ChoiceType::class, [
             'mapped' => false,
             'required' => false,
-            'choices' => $choices
+            'choices' => $choices,
+            'data' => ($car instanceof Car && $car->getModel()) ? $car->getModel()->getName() : null,
         ]);
     }
 
@@ -109,7 +123,7 @@ class CarType extends AbstractType
     private function addModels(FormInterface $form, $car = null)
     {
         $brand = null;
-        if($car instanceof Car && $car->getId()) {
+        if($car instanceof Car) {
             $brand = $car->getBrand();
         }
         if (is_array($car) && array_key_exists('brand', $car)) {
@@ -120,11 +134,10 @@ class CarType extends AbstractType
 
         $form->add('model', EntityType::class, [
             'class' => Model::class,
-            'data' => ($car instanceof Car && $car->getId()) ? $car->getModel() : null,
             'choice_label' => function ($model, $key, $value) {
                 return "{$model->getEngineVolume()->getValue()} {$model->getEngineType()->getValue()}, year {$model->getYear()}";
             },
-            'choices' => $brand ? $this->models->filterByBrand($brand)->get() : []
+            'choices' => $brand ? $this->models->buildQuery()->filterByBrand($brand)->get() : [],
         ]);
     }
 }

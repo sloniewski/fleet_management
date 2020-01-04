@@ -24,6 +24,10 @@ class AbstractRepository extends ServiceEntityRepository
         return $this->createQueryBuilder($this->alias);
     }
 
+    /**
+     * Gets the list of results for the query.
+     * @return mixed
+     */
     public function get()
     {
         return $this->getBuilder()
@@ -36,5 +40,14 @@ class AbstractRepository extends ServiceEntityRepository
         return $this->getBuilder()
         ->getQuery()
         ->getOneOrNullResult();
+    }
+
+    /**
+     * @return AbstractRepository
+     */
+    public function buildQuery(): self
+    {
+        $this->builder = null;
+        return $this;
     }
 }
