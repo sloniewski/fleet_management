@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,21 @@ class Car
      * @ORM\ManyToOne(targetEntity="App\Entity\Color")
      */
     private $color;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="car", orphanRemoval=true)
+     */
+    private $events;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true, unique=true)
+     */
+    private $plates;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,5 +92,48 @@ class Car
     public function getBrand(): Brand
     {
         return $this->getModel()->getBrand();
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCar() === $this) {
+                $event->setCar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPlates(): ?string
+    {
+        return $this->plates;
+    }
+
+    public function setPlates(?string $plates): self
+    {
+        $this->plates = $plates;
+
+        return $this;
     }
 }

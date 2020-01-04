@@ -1,11 +1,19 @@
 <div class="row">
     {{ form_start(form, {'attr': {'id': 'new'}}) }}
 
-    <div class="col s12">
+    <div class="col s12 m6">
         {{ form_label(form.year) }}
         {{ form_widget(form.year) }}
         <div class="form-error">
             {{ form_errors(form.year) }}
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        {{ form_label(form.plates) }}
+        {{ form_widget(form.plates) }}
+        <div class="form-error">
+            {{ form_errors(form.plates) }}
         </div>
     </div>
 

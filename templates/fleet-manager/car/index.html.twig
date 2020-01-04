@@ -5,7 +5,15 @@
 {% block body %}
     <ul class="collection">
     {% for car in cars %}
-        <li class="collection-item"> {{ car.model.name }} {{ car.year }}</li>
+        <li class="collection-item avatar">
+            <span class="title">{{ car.plates }}</span>
+            <p>{{ car.model.name }}<br>
+                {{ car.year }}
+            </p>
+            <a href="{{ path('cars_edit', { 'id': car.id }) }}" class="secondary-content">
+                <i class="material-icons">edit</i>
+            </a>
+        </li>
     {% endfor %}
     </ul>
 {% endblock %}

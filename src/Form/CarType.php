@@ -32,6 +32,7 @@ class CarType extends AbstractType
     {
         $builder
             ->add('year')
+            ->add('plates')
             ->add('brand', EntityType::class, [
                 'class' => Brand::class,
                 'mapped' => false,
@@ -105,15 +106,23 @@ class CarType extends AbstractType
      * @param FormInterface $form
      * @param $car
      */
-    private function addModels(FormInterface $form, $car)
+    private function addModels(FormInterface $form, $car = null)
     {
-        $brand = array_key_exists('model', $car) ? $car['model'] : null;
+        $brand = null;
+        if($car instanceof Car && $car->getId()) {
+            $brand = $car->getBrand();
+        }
+        if (is_array($car) && array_key_exists('brand', $car)) {
+            $brand = $car['brand'];
+        }
+
         if($brand) $brand = $this->brands->filterById($brand)->first();
 
         $form->add('model', EntityType::class, [
             'class' => Model::class,
-            'choice_label' => function ($choice, $key, $value) {
-                return "{$key} {$choice->getName()} {$choice->getYear()} {$choice->getEngineVolume()->getValue()}";
+            'data' => ($car instanceof Car && $car->getId()) ? $car->getModel() : null,
+            'choice_label' => function ($model, $key, $value) {
+                return "{$model->getEngineVolume()->getValue()} {$model->getEngineType()->getValue()}, year {$model->getYear()}";
             },
             'choices' => $brand ? $this->models->filterByBrand($brand)->get() : []
         ]);
