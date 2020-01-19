@@ -43,6 +43,11 @@ class Car
      */
     private $plates;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Driver", inversedBy="cars")
+     */
+    private $driver;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -133,6 +138,18 @@ class Car
     public function setPlates(?string $plates): self
     {
         $this->plates = $plates;
+
+        return $this;
+    }
+
+    public function getDriver(): ?Driver
+    {
+        return $this->driver;
+    }
+
+    public function setDriver(?Driver $driver): self
+    {
+        $this->driver = $driver;
 
         return $this;
     }

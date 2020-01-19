@@ -1,0 +1,41 @@
+{% extends 'fleet-manager/layout/base.html.twig' %}
+
+{% block title %}Driver info{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card-panel white">
+                <h5>Driver data</h5>
+                name:<strong>{{ driver.name }} {{ driver.surname }}</strong><br>
+                email: <strong>{{ driver.email }}</strong><br>
+                phone: <strong>{{ driver.phone }}</strong>
+                <div class="secondary-content">
+                    <a href="{{ path('driver_edit', { 'id': driver.id }) }}" >
+                        <button class="btn btn-small yellow darken-3">edit</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12">
+            <div class="card-panel white">
+                <p><h5>Cars assigned</h5></p>
+                <ul class="collection">
+                    {% for car in driver.cars %}
+                        <li class="collection-item avatar">
+                            <span class="title">{{ car.plates }}</span>
+                            <p>{{ car.model.name }} {{ car.year }}</p>
+                            <a href="" class="secondary-content">
+                                <button class="btn btn-small red darken-3">remove</button>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock body %}

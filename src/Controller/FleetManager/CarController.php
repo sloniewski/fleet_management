@@ -108,7 +108,7 @@ class CarController extends AbstractController
 
         $models = $this->models->getDistinctModelNames($brand);
         foreach($models as $model) {
-            $data['results'][] = ['id' => $model->getName(), 'text' => $model->getName()];
+            $data['results'][] = ['id' => $model['name'], 'text' => $model['name']];
         }
 
         return (new JsonResponse($data));

@@ -105,7 +105,7 @@ class CarType extends AbstractType
         $choices = [];
         $models = $this->models->buildQuery()->getDistinctModelNames($brand);
         foreach($models as $model) {
-            $choices[$model->getName()] = $model->getName();
+            $choices[$model['name']] = $model['name'];
         }
 
         $form->add('model_name', ChoiceType::class, [

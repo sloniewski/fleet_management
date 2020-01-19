@@ -36,12 +36,12 @@ class ModelRepository extends AbstractRepository
     
     public function getDistinctModelNames(Brand $brand = null)
     {
-        $this->getBuilder()
+        $this->builder = $this->getBuilder()
             ->select("{$this->alias}.name, {$this->alias}.brand_id")
             ->groupBy("{$this->alias}.name, {$this->alias}.brand_id");
 
         if ($brand) {
-            $this->getBuilder()
+            $this->builder = $this->getBuilder()
                 ->having("{$this->alias}.brand_id = :brand_id")
                 ->setParameter('brand_id', $brand->getId());
         }

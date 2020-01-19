@@ -1,0 +1,22 @@
+{% extends 'fleet-manager/layout/base.html.twig' %}
+
+{% block title %}Drivers{% endblock %}
+
+{% block body %}
+    <ul class="collection">
+        {% for driver in drivers %}
+            <li class="collection-item avatar">
+                <span class="title">{{ driver.name }} {{ driver.surname }}</span>
+                <div class="secondary-content">
+                    <a href="{{ path('driver_show', { 'id': driver.id }) }}">
+                        <button class="btn btn-small">Show</button>
+                    </a>
+                    <a href="{{ path('driver_add_car', { 'id': driver.id }) }}">
+                        <button class="btn btn-small">Add car</button>
+                    </a>
+
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
