@@ -10,8 +10,8 @@
             <p>{{ car.model.name }}<br>
                 {{ car.year }}
             </p>
-            <a href="{{ path('cars_edit', { 'id': car.id }) }}" class="secondary-content">
-                <i class="material-icons">edit</i>
+            <a href="{{ path('cars_show', { 'plates': car.plates }) }}" class="secondary-content">
+                <button class="btn btn-small">SHOW</button>
             </a>
         </li>
     {% endfor %}

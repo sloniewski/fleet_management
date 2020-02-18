@@ -1,0 +1,58 @@
+{% extends 'fleet-manager/layout/base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col m12">
+        <h4 class="header">{{  car.brand.name | capitalize}} {{ car.model.name | capitalize }} {{ car.year }}</h4>
+    </div>
+    <div class="col m12">
+        <div class="card horizontal">
+            <div class="card-image">
+                <img src="{{ asset('app/placeholder.png') }}" style="width: 200px; height: 200px">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <span class="card-title">Car details</span>
+                    <p>
+                        Plates: {{ car.plates }}<br>
+                        Registration year: {{  car.year }}<br>
+                        Model year: {{ car.model.year }}
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a href="{{ path('cars_edit', { 'plates': car.plates }) }}">
+                        <button class="btn btn-small">EDIT</button>
+                    </a>
+                    <a href="">
+                        <button class="btn btn-small">DELETE</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col m12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Driver details</span>
+                <p>Driver details</p>
+            </div>
+            <div class="card-action">
+                <a href="#"><button class="btn btn-small">SHOW</button></a>
+                <a href="#"><button class="btn btn-small">CHANGE</button></a>
+                <a href="#"><button class="btn btn-small">REMOVE</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="col m12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Car history</span>
+                <p>most recent</p>
+            </div>
+            <div class="card-action">
+                <a href="#"><button class="btn btn-small">BROWSE</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

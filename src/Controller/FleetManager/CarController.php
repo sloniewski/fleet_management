@@ -49,6 +49,16 @@ class CarController extends AbstractController
     }
 
     /**
+     * @Route("/{plates}", name="show", methods={"GET"})
+     */
+    public function show(Request $request, Car $car)
+    {
+        return $this->render('/fleet-manager/car/show.html.twig', [
+            'car' => $car
+        ]);
+    }
+
+    /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request)
@@ -71,7 +81,7 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @Route("/{plates}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Car $car): Response
     {
