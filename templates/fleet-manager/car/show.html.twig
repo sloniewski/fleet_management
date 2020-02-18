@@ -34,11 +34,16 @@
         <div class="card">
             <div class="card-content">
                 <span class="card-title">Driver details</span>
-                <p>Driver details</p>
+                {% if car.driver %}
+                    {% include 'fleet-manager/driver/partials/info.html.twig' with {'driver': car.driver} %}
+                {% endif %}
             </div>
             <div class="card-action">
-                <a href="#"><button class="btn btn-small">SHOW</button></a>
-                <a href="#"><button class="btn btn-small">CHANGE</button></a>
+                {% if car.driver %}
+                    <a href="{{ path('driver_show', {'id': car.driver.id}) }}"><button class="btn btn-small">SHOW</button></a>
+                {% endif %}
+                <a href="{{  path('cars_driver', { 'plates': car.plates }) }}">
+                    <button class="btn btn-small">CHANGE</button></a>
                 <a href="#"><button class="btn btn-small">REMOVE</button></a>
             </div>
         </div>

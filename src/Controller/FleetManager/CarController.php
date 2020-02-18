@@ -4,6 +4,7 @@ namespace App\Controller\FleetManager;
 
 use App\Entity\Car;
 use App\Entity\Brand;
+use App\Form\CarDriverType;
 use App\Form\CarType;
 use App\Repository\ModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,6 +96,26 @@ class CarController extends AbstractController
         }
 
         return $this->render('fleet-manager/car/edit.html.twig', [
+            'car' => $car,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{plates}/driver", name="driver", methods={"GET","POST"})
+     */
+    public function editDriver(Request $request, Car $car)
+    {
+        $form = $this->createForm(CarDriverType::class, $car);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+            return $this->redirectToRoute('cars_show', ['plates' => $car->getPlates()]);
+        }
+
+        return $this->render('fleet-manager/car/driver.html.twig',[
             'car' => $car,
             'form' => $form->createView(),
         ]);

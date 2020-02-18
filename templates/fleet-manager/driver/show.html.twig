@@ -8,11 +8,7 @@
         <div class="card">
             <div class="card-content">
                 <span class="card-title">Driver data</span>
-                <p>
-                    name:<strong>{{ driver.name }} {{ driver.surname }}</strong><br>
-                    email: <strong>{{ driver.email }}</strong><br>
-                    phone: <strong>{{ driver.phone }}</strong>
-                </p>
+                {% include 'fleet-manager/driver/partials/info.html.twig' %}
             </div>
             <div class="card-action">
                 <a href="{{ path('driver_edit', { 'id': driver.id }) }}" >

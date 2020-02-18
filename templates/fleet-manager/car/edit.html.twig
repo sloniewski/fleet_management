@@ -3,6 +3,9 @@
 {% block body %}
     {% include 'fleet-manager/car/_form.html.twig' %}
     <button class="btn waves-effect waves-light" type="submit" form="new">Submit</button>
+    <a href="{{ path('cars_show', { 'plates': car.plates }) }}">
+        <button class="btn waves-effect waves-light" type="button">Cancel</button>
+    </a>
 {% endblock body %}
 
 {% block scripts %}
